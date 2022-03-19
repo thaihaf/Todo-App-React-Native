@@ -14,4 +14,7 @@ export default {
   errorInput: "#F44336",
 
   primaryBgButton: "#FB71A5",
+
+  modalBackground : "#002B36",
+  borderColor : "gray"
 };

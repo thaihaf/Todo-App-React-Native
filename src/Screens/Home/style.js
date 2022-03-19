@@ -38,52 +38,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
-
-  //
-  // bottomTab: {
-  //   marginHorizontal: 20,
-  //   height: "100%",
-  // },
-  // itemDetails: {
-  //   width: "100%",
-  //   backgroundColor: "#4DC591",
-  //   borderRadius: 15,
-
-  //   marginTop: 15,
-  //   paddingHorizontal: 20,
-  //   paddingVertical: 10,
-
-  //   alignItems: "center",
-  // },
-  // itemNameCap: {
-  //   fontWeight: "600",
-  //   fontSize: 19,
-  //   marginBottom: 5,
-  // },
-  // itemName: {
-  //   fontSize: 14,
-  // },
-  // buttons: {
-  //   width: "100%",
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  // },
-  // button: {
-  //   borderWidth: 0,
-  //   height: 40,
-  //   paddingHorizontal: 7,
-  //   borderRadius: 15,
-  // },
-  // primaryBtnText: {
-  //   fontSize: 13,
-  // },
-
-  // //
-  // container: {
-  //   paddingHorizontal: 20,
-  //   backgroundColor : "#FAFAF5",
-  //   flex : 1
-  // },
 });
 
 export default styles;

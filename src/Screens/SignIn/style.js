@@ -28,15 +28,6 @@ const styles = StyleSheet.create({
   formGroups: {
     marginTop: 20,
   },
-  recoveryPass: {
-    alignSelf: "flex-end",
-    padding: 4,
-    marginTop: 15,
-  },
-  recoveryPassText: {
-    fontWeight: "500",
-    color: "green",
-  },
   primaryBtn: {
     borderColor: ColorCode.primaryBgButton,
   },

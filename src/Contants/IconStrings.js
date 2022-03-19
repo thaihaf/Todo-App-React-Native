@@ -19,5 +19,6 @@ export default {
   icClose: "close-circle-outline",
   icCycle: "ellipse-outline",
   icLocation: "location",
-  icSearch: "search"
+  icSearch: "search",
+  icDot: "ellipsis-vertical-outline",
 };

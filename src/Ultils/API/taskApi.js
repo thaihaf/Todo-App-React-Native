@@ -1,36 +1,38 @@
-import axiosInstance from "../../Helpers/axios";
+import instance from "../../Helpers/axios";
 
-export default function taskAPI() {
-  const axios = axiosInstance();
+const createTask = async (data) => {
+  let res = await instance.post("api/tasks", data);
+  return res.data;
+};
 
-  const createTask = async (data) => {
-    let res = await axios.post("api/tasks", data);
-    return res.data;
-  };
+const getTasks = async (linkApi, firstRequest) => {
+  const res = await instance.get(linkApi);
+  firstRequest && await new Promise((r) => setTimeout(r, 3000));
+  return res.data;
+};
 
-  const getTasks = async (linkApi) => {
-    const res = await axios.get(linkApi);
-    return res.data;
-  };
+const getTask = async (id) => {
+  const res = await instance.get(`api/tasks/${id}`);
+  await new Promise((r) => setTimeout(r, 3000));
+  return res.data;
+};
 
-  const getTask = async (id) => {
-    const res = await axios.get(`api/tasks/${id}`);
-    return res.data;
-  };
+const updateTask = async ({id, data}) => {
+  const res = await instance.patch(`api/tasks/${id}`, data);
+  return res.data;
+};
 
-  const updateTask = async (id, data) => {
-    const res = await axios.patch(`api/tasks/${id}`, data);
-    return res.data;
-  };
+const deleteTask = async (id) => {
+  const res = await instance.delete(`api/tasks/${id}`);
+  return res.data;
+};
+// const deleteTask = async (id) => {
+//   const res = await instance.delete(`api/tasks/${id}`, {
+//     headers: {
+//       "Content-Type": "application/x-www-form-urlencoded",
+//     },
+//   });
+//   return res.data;
+// };
 
-  const deleteTask = async (id) => {
-    const res = await axios.delete(`api/tasks/${id}`, {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    });
-    return res.data;
-  };
-
-  return { createTask, getTasks, getTask, updateTask, deleteTask };
-}
+export { createTask, getTasks, getTask, updateTask, deleteTask };

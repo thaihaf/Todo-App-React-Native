@@ -8,7 +8,8 @@ const Input = (props) => {
     <View style={styles.container}>
       <TextInput
         {...props}
-        style={[styles.input, props.error && styles.borderError, props.style]}
+        style={[
+			styles.input, props.error && styles.borderError, props.style]}
       />
       {props.errorText && (
         <Text style={styles.errorText}>{props.errorText}</Text>

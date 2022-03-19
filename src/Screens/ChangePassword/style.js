@@ -34,18 +34,6 @@ const styles = StyleSheet.create({
   primaryBtnText: {
     textTransform: "uppercase",
   },
-  loginLink: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "auto",
-  },
-  loginText: {
-    color: ColorCode.appText,
-  },
-  loginBtnText: {
-    color: "green",
-  },
 });
 
 export default styles;

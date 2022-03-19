@@ -1,30 +1,40 @@
-import React from "react";
+import { Ionicons } from "@expo/vector-icons";
+import React, { useState } from "react";
 import {
-  Alert,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
+	Text,
+	View,
 } from "react-native";
-import ImagePath from "../../contants/ImagePath";
-
-import NavigationStrings from "../../contants/NavigationStrings";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import ColorCode from "../../Contants/ColorCode";
+import NavigationStrings from "../../Contants/NavigationStrings";
 
 import styles from "./style";
 
 const Task = ({ task, navigation }) => {
-  const handldeTouch = () => {
-    navigation.navigate(NavigationStrings.ITEMS, { task: task });
-  };
-
-  return (
-    <TouchableOpacity activeOpacity={0.5} onPress={handldeTouch}>
-      <View style={styles.container}>
-        <Text style={styles.title}>{task.title}</Text>
-        <Image source={ImagePath.imgItem} style={styles.taskImage} />
-      </View>
-    </TouchableOpacity>
-  );
+	
+	return (
+		<View style={styles.container}>
+			<View
+				style={{
+					backgroundColor: "#FB71A5",
+					borderRadius: 17,
+					marginRight: 15,
+				}}
+			>
+				<Ionicons
+					style={{
+						textAlign: "center",
+						paddingHorizontal: 14,
+						paddingVertical: 10,
+					}}
+					name="baseball"
+					size={41}
+					color={ColorCode.appText}
+				/>
+			</View>
+			<Text style={styles.title}>{task.title}</Text>
+		</View>
+	);
 };
 
 export default Task;

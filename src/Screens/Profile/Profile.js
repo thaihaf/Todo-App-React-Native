@@ -1,135 +1,143 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
-  View,
-  Text,
-  SafeAreaView,
-  FlatList,
-  Alert,
-  Dimensions,
-  Image,
-  Switch,
+	View,
+	Text,
+	SafeAreaView,
+	Alert,
+	Image,
+	TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Button, Category, Header, TimeTable } from "../../Components";
+import { Button } from "../../Components";
 import IconStrings from "../../Contants/IconStrings";
 import ImagePath from "../../Contants/ImagePath";
-import NavigationStrings from "../../Contants/NavigationStrings";
 
 import styles from "./style";
-import { Modal } from "react-native";
-import { ScrollView } from "react-native";
+import Toast from "react-native-toast-message";
+import ColorCode from "../../Contants/ColorCode";
+import NavigationStrings from "../../Contants/NavigationStrings";
+import Context from "../../Helpers/Context";
+import { useMutation } from "react-query";
+import { deleteUser } from "../../Ultils/API/userApi";
+import * as SecureStore from 'expo-secure-store';
+import { navigate } from "../../Navigation/RootNavigation";
 
-const Profile = (props) => {
-  const { navigation } = props;
-  return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        <View style={styles.topActions}>
-          <Ionicons
-            style={[styles.topAction, styles.backButton]}
-            name={IconStrings.icArrowBack2}
-            size={29}
-          />
-          <Text style={styles.title}>Profile</Text>
-          <Ionicons
-            style={[styles.topAction, styles.logoutButton]}
-            name="log-out-outline"
-            size={29}
-          />
-        </View>
+const Profile = ({ navigation }) => {
+	const context = useContext(Context);
 
-        <View style={[styles.info]}>
-          <Image style={styles.avt} source={ImagePath.imgAvatar} />
-          <Text style={styles.name}>Nguyen Thai Ha</Text>
-        </View>
+	const actionSignout = async () => {
+		navigate(NavigationStrings.LOGOUT)
 
-        <Button
-          style={styles.primaryBtn}
-          text="Edit Profile"
-          textStyle={styles.primaryBtnText}
-        />
+		Toast.show({
+			type: "success",
+			text1: "Signout success! 👋",
+			visibilityTime: 5000,
+		});
 
-        <View style={styles.tab}>
-          <Ionicons
-            style={{
-              width: 30,
-              marginRight: 11,
-              textAlign: "center",
-            }}
-            name="chatbox-ellipses"
-            size={25}
-            color="gray"
-          />
+	}
+	const handleLogout = () => {
+		Alert.alert("Sign out Account",
+			`Chắc chắn sign out ?`,
+			[
+				{
+					text: "Signout",
+					onPress: actionSignout
+				},
+				{
+					text: "Cancel"
+				},
+			], { cancelable: false }
+		)
 
-          <Text style={styles.courseName}>Contact</Text>
-        </View>
+	}
 
-        <View style={styles.tab}>
-          <Ionicons
-            style={{
-              width: 30,
-              marginRight: 11,
-              textAlign: "center",
-            }}
-            name="settings"
-            size={25}
-            color="gray"
-          />
+	const mutation = useMutation(deleteUser, {
+		onSuccess: async (data) => {
+			navigate(NavigationStrings.LOGOUT)
 
-          <Text style={styles.courseName}>Accounts Settings</Text>
-        </View>
+			Toast.show({
+				type: "success",
+				text1: "Delete Account success! 👋",
+				text2: "Hello",
+				visibilityTime: 5000,
+			});
+		},
+		onError: (error) => {
+			Toast.show({
+				type: "error",
+				text1: error.response.data.message,
+				text2: `Code : ${error.response.data.code}`,
+				visibilityTime: 5000,
+			});
+		},
+	});
 
-        <View style={styles.tab}>
-          <Ionicons
-            style={{
-              width: 30,
-              marginRight: 11,
-              textAlign: "center",
-            }}
-            name="notifications"
-            size={25}
-            color="gray"
-          />
+	const handleDeleteAccount = () => {
+		Alert.alert("Sign out Account",
+			`Chắc chắn delete account ?`,
+			[
+				{
+					text: "Delete",
+					onPress: () => mutation.mutate(context.user.id)
+				},
+				{
+					text: "Cancel"
+				},
+			], { cancelable: false }
+		)
+	}
+	return (
+		<SafeAreaView style={{ flex: 1 }}>
+			<View style={styles.container}>
+				<View style={styles.topActions}>
+					<TouchableOpacity
+						activeOpacity={0.5}
+						onPress={() => navigation.goBack()}
+					>
+						<Ionicons
+							name={IconStrings.icArrowBack2}
+							size={29}
+							color={ColorCode.appText}
+						/>
+					</TouchableOpacity>
 
-          <Text style={styles.courseName}>Notifications</Text>
 
-          <Switch value={true} />
-        </View>
+					<Text style={styles.title}>Profile</Text>
 
-        <View style={styles.tab}>
-          <Ionicons
-            style={{
-              width: 30,
-              marginRight: 11,
-              textAlign: "center",
-            }}
-            name="mail"
-            size={25}
-            color="gray"
-          />
+					<TouchableOpacity
+						activeOpacity={0.5}
+						onPress={handleLogout}
+					>
+						<Ionicons
+							name="log-out-outline"
+							size={29}
+							color={ColorCode.appText}
+						/>
+					</TouchableOpacity>
 
-          <Text style={styles.courseName}>Email Remaining</Text>
+				</View>
 
-          <Switch value={true} />
-        </View>
+				<View style={[styles.info]}>
+					<Image style={styles.avt} source={ImagePath.imgAvatar} />
+					<Text style={styles.name}>{context.user.username}</Text>
+				</View>
 
-        <View style={styles.tab}>
-          <Ionicons
-            style={{
-              width: 30,
-              marginRight: 11,
-              textAlign: "center",
-            }}
-            name="information-circle"
-            size={25}
-            color="gray"
-          />
+				<Button
+					style={styles.primaryBtn}
+					text="Change Password"
+					textStyle={styles.primaryBtnText}
+					onPress={() => navigation.navigate(NavigationStrings.CHANGE_PASSWORD)}
+				/>
+				<Button
+					style={styles.primaryBtn}
+					text="Delete Account"
+					textStyle={styles.primaryBtnText}
+					onPress={handleDeleteAccount}
+				/>
 
-          <Text style={styles.courseName}>About</Text>
-        </View>
-      </View>
-    </SafeAreaView>
-  );
+			</View>
+		</SafeAreaView>
+	);
 };
 
 export default Profile;
