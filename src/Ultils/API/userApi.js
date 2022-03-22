@@ -12,7 +12,7 @@ const login = async (details) => {
 
 const getUser = async (id) => {
 	const res = await instance.get(`api/users/${id}`);
-	return res.data;
+	return res ? res.data : res;
 };
 
 const updateUser = async ({ id, details }) => {

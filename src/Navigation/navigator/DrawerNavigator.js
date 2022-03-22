@@ -16,7 +16,6 @@ const DrawerNavigator = () => {
 
 	return (
 		<Drawer.Navigator
-			initialRouteName={NavigationStrings.HOME}
 			drawerContent={
 				(props) =>
 					<CustomDrawerContent {...props} />
@@ -29,7 +28,7 @@ const DrawerNavigator = () => {
 			}}
 		>
 			<Drawer.Screen
-				name={NavigationStrings.HOME}
+				name={NavigationStrings.HOME_DRAWER}
 				component={HomeNavigator}
 				options={{
 					drawerIcon: ({ focused }) => {

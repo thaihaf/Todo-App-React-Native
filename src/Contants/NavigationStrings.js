@@ -5,6 +5,7 @@ export default {
   TASKS: "Tasks",
   TASK_ACTIONS : "Task Actions",
   UPDATE_TASK : "Update Task",
+  HOME_DRAWER: "HomeDrawer",
 
   HEADER_TEXT: "TODO APP",
 

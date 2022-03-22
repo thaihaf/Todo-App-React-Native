@@ -28,7 +28,8 @@ const AppNavContainer = () => {
 
 	const mutation = useMutation(getUser, {
 		onSuccess: async (data) => {
-			setIsAuthenticated(true);
+			if(data){
+				setIsAuthenticated(true);
 
 			context.updateUser(data);
 
@@ -38,6 +39,10 @@ const AppNavContainer = () => {
 				text2: "Hello",
 				visibilityTime: 5000,
 			});
+			}else{
+				setIsAuthenticated(false);
+
+			}
 		},
 		onError: async (error) => {
 			setIsAuthenticated(false);
@@ -59,7 +64,7 @@ const AppNavContainer = () => {
 
 	useEffect(() => {
 		getUsers();
-	}, [])
+	}, [isLoggedIn])
 
 	return (
 		<NavigationContainer

@@ -100,13 +100,23 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
 	(response) => { // block to handle success case
 		return response
-	}, (error) => { // block to handle error case
+	}, async (error) => { // block to handle error case
 		if (!error.response) {
 			return new Promise((resolve, reject) => {
 				reject(error)
 			})
 		}
-		navigate(NavigationStrings.LOGOUT)
+
+		const errorCode = error.response.status;
+		const token = await SecureStore.getItemAsync("token");
+
+		if (((errorCode == 401 || errorCode == 403) && token)) {
+			navigate(NavigationStrings.LOGOUT)
+		} else {
+			return new Promise((resolve, reject) => {
+				reject(error)
+			})
+		}
 	});
 
 export default instance;
