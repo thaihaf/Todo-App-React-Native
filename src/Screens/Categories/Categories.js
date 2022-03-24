@@ -12,7 +12,6 @@ import NavigationStrings from "../../Contants/NavigationStrings";
 import IconStrings from "../../Contants/IconStrings";
 import { useQuery } from "react-query";
 import { getCollections } from "../../Ultils/API/collectionsApi";
-import Toast from "react-native-toast-message";
 import SkeletonContent from "react-native-skeleton-content";
 import Context from "../../Helpers/Context";
 

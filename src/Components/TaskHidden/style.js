@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import ColorCode from "../../Contants/ColorCode";
 
 const styles = StyleSheet.create({
 	hiddenActions: {

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
 import { View, Text, TouchableOpacity, Image } from "react-native";
-import * as SecureStore from 'expo-secure-store';
 
 import IconStrings from "../../../Contants/IconStrings";
 import ImagePath from "../../../Contants/ImagePath";

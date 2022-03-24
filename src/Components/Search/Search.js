@@ -1,13 +1,10 @@
 //import liraries
-import React, { Component, useRef, useState } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View,} from 'react-native';
 import ColorCode from '../../Contants/ColorCode';
-import NavigationStrings from '../../Contants/NavigationStrings';
 import Button from '../Button/Button';
 import TextInput from '../Input/Input';
 import styles from './style';
-
 
 const Search = ({ actionClose, navigation, data }) => {
 	const [searchVal, setSearchVal] = useState("");

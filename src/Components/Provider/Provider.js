@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Context from "../../Helpers/Context";
-import * as SecureStore from 'expo-secure-store';
-import { getUser } from "../../Ultils/API/userApi"
-import { useMutation, useQuery } from "react-query";
-import Toast from "react-native-toast-message";
-import RNRestart from 'react-native-restart';
 
 
 export default function Provider({ children }) {

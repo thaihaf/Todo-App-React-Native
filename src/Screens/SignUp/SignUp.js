@@ -1,6 +1,5 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import React, { useRef} from "react";
-import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { Button, TextInput } from "../../Components";
@@ -9,7 +8,7 @@ import NavigationStrings from "../../Contants/NavigationStrings";
 import styles from "./style";
 
 import Toast from "react-native-toast-message";
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { register } from "../../Ultils/API/userApi";
 
 const SignUp = (props) => {

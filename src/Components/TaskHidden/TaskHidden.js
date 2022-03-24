@@ -1,6 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import React from 'react';
+import { View, TouchableOpacity, Alert } from 'react-native';
 import { useMutation } from 'react-query';
 import ColorCode from '../../Contants/ColorCode';
 import NavigationStrings from '../../Contants/NavigationStrings';

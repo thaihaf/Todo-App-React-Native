@@ -1,17 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState } from "react";
+import React from "react";
 import {
 	Text,
 	View,
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import ColorCode from "../../Contants/ColorCode";
-import NavigationStrings from "../../Contants/NavigationStrings";
 
 import styles from "./style";
 
-const Task = ({ task, navigation }) => {
-	
+const Task = ({ task }) => {
 	return (
 		<View style={styles.container}>
 			<View

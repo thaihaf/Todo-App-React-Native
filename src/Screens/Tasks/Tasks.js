@@ -1,32 +1,22 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { useState } from "react";
 import {
-	FlatList,
 	Keyboard,
 	KeyboardAvoidingView,
 	SafeAreaView,
-	ScrollView,
-	StyleSheet,
-	Text,
 	TouchableWithoutFeedback,
 	View,
 } from "react-native";
 
 import styles from "./style";
-import { Button, Task, Header, TextInput, TaskHidden, Search, Pagination } from "../../Components";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { Button, Task, Header, TaskHidden, Search, Pagination } from "../../Components";
 import NavigationStrings from "../../Contants/NavigationStrings";
 import SkeletonContent from "react-native-skeleton-content";
 import Context from "../../Helpers/Context";
 import { useQuery } from "react-query";
 import { getTasks } from "../../Ultils/API/taskApi";
 import IconStrings from "../../Contants/IconStrings";
-import ColorCode from "../../Contants/ColorCode";
-import { Controller, useForm } from "react-hook-form";
 import { SwipeListView } from "react-native-swipe-list-view";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-
 
 const Tasks = ({ navigation, route }) => {
 	const context = useContext(Context);

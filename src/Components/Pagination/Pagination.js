@@ -1,6 +1,6 @@
 //import liraries
-import React, { Component, useRef, useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { View, } from 'react-native';
 import NavigationStrings from '../../Contants/NavigationStrings';
 import Button from '../Button/Button';
 import TextInput from '../Input/Input';
@@ -48,7 +48,7 @@ const Pagination = ({ data, navigation }) => {
 	};
 
 	return (
-		<View style={[styles.paging__list, data.meta.totalPages === 0 && {display: 'none'}]}>
+		<View style={[styles.paging__list, data.meta.totalPages === 0 && { display: 'none' }]}>
 			<Button
 				style={[
 					styles.paging__item,

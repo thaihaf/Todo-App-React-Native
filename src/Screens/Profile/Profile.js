@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
 	View,
 	Text,
@@ -19,7 +19,6 @@ import NavigationStrings from "../../Contants/NavigationStrings";
 import Context from "../../Helpers/Context";
 import { useMutation } from "react-query";
 import { deleteUser } from "../../Ultils/API/userApi";
-import * as SecureStore from 'expo-secure-store';
 import { navigate } from "../../Navigation/RootNavigation";
 
 const Profile = ({ navigation }) => {

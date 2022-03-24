@@ -1,11 +1,9 @@
 //import liraries
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from 'react';
-import { View, Text, Modal, ScrollView, Pressable, TouchableOpacity, TouchableWithoutFeedback, Alert, Keyboard } from 'react-native';
-
+import { View, Text, ScrollView, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import CheckBox from "expo-checkbox";
-
 
 import { Controller, useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
