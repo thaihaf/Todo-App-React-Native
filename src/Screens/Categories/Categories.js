@@ -7,12 +7,11 @@ import {
 	View,
 } from "react-native";
 import styles from "./style";
-import { Button, Category, Header, Search } from "../../Components";
+import { Button, Category, Header, MyLoader, Search } from "../../Components";
 import NavigationStrings from "../../Contants/NavigationStrings";
 import IconStrings from "../../Contants/IconStrings";
 import { useQuery } from "react-query";
 import { getCollections } from "../../Ultils/API/collectionsApi";
-import SkeletonContent from "react-native-skeleton-content";
 import Context from "../../Helpers/Context";
 
 const CategoriesList = ({ navigation, route }) => {
@@ -55,36 +54,7 @@ const CategoriesList = ({ navigation, route }) => {
 				behavior={Platform.OS === "ios" ? "padding" : "height"}
 			>
 				<View style={styles.container}>
-					{openSearchBar ? (
-						<Search
-							actionClose={setOpenSearchBar}
-							navigation={navigation}
-							data={{
-								key: NavigationStrings.CATEGORIES,
-								name: "categories"
-							}}
-						/>
-					) : (
-						<Button
-							style={styles.searchBtn}
-							onPress={() => setOpenSearchBar(true)}
-							iconPos="left"
-							icon={IconStrings.icSearch}
-						/>
-					)}
-
-					<SkeletonContent
-						containerStyle={{ flex: 1, width: "100%", paddingHorizontal: 20 }}
-						isLoading={isLoading}
-						layout={[
-							{ key: "someId1", width: "100%", height: 100, marginBottom: 6 },
-							{ key: "someOtherId1", width: 180, height: 20, marginBottom: 6 },
-							{ key: "someId2", width: "100%", height: 100, marginBottom: 6 },
-							{ key: "someOtherId2", width: 180, height: 20, marginBottom: 6 },
-							{ key: "someId3", width: "100%", height: 100, marginBottom: 6 },
-							{ key: "someOtherId3", width: 180, height: 20, marginBottom: 6 },
-						]}
-					>
+					<MyLoader isLoading={isLoading}>
 						{data && (
 							<FlatList
 								data={data.items}
@@ -94,7 +64,25 @@ const CategoriesList = ({ navigation, route }) => {
 								keyExtractor={(item) => `${item.id}`}
 							/>
 						)}
-					</SkeletonContent>
+
+						{openSearchBar ? (
+							<Search
+								actionClose={setOpenSearchBar}
+								navigation={navigation}
+								data={{
+									key: NavigationStrings.CATEGORIES,
+									name: "categories"
+								}}
+							/>
+						) : (
+							<Button
+								style={styles.searchBtn}
+								onPress={() => setOpenSearchBar(true)}
+								iconPos="left"
+								icon={IconStrings.icSearch}
+							/>
+						)}
+					</MyLoader>
 				</View>
 			</KeyboardAvoidingView>
 		</SafeAreaView>

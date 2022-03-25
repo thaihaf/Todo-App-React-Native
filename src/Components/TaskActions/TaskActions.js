@@ -8,10 +8,10 @@ import CheckBox from "expo-checkbox";
 import { Controller, useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
 import Toast from "react-native-toast-message";
-import SkeletonContent from 'react-native-skeleton-content';
 import styles from './style';
 import Button from '../Button/Button';
 import TextInput from '../Input/Input';
+import MyLoader from '../MyLoader/MyLoader';
 import { getCollections } from '../../Ultils/API/collectionsApi';
 import { createTask, updateTask } from '../../Ultils/API/taskApi';
 import NavigationStrings from '../../Contants/NavigationStrings';
@@ -145,17 +145,8 @@ const TaskActions = ({ navigation, route }) => {
 						</Text>
 
 						<ScrollView style={styles.listItems}>
-							<SkeletonContent
-								containerStyle={{ flex: 1, width: "100%", paddingHorizontal: 10, marginBottom: 20 }}
-								isLoading={isLoading}
-								layout={[
-									{ key: "1", width: "100%", height: 70, marginTop: 10, borderRadius: 15 },
-									{ key: "2", width: "100%", height: 70, marginTop: 10, borderRadius: 15 },
-									{ key: "3", width: "100%", height: 70, marginTop: 10, borderRadius: 15 },
-									{ key: "4", width: "100%", height: 70, marginTop: 10, borderRadius: 15 }
-								]}
-							>
-								{data && data?.items?.map((item) => {
+							<MyLoader isLoading={isLoading}>
+								{data && data.items.map((item) => {
 									const checked = listSelections?.find((id) => id === item.id) || false;
 
 									return <TouchableOpacity
@@ -179,8 +170,7 @@ const TaskActions = ({ navigation, route }) => {
 
 									</TouchableOpacity>
 								})}
-							</SkeletonContent>
-
+							</MyLoader>
 						</ScrollView>
 					</View>
 

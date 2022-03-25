@@ -9,3 +9,4 @@ export { default as TaskActions } from "./TaskActions/TaskActions";
 export { default as TaskHidden } from "./TaskHidden/TaskHidden";
 export { default as Search } from "./Search/Search";
 export { default as Pagination } from "./Pagination/Pagination";
+export { default as MyLoader } from "./MyLoader/MyLoader";

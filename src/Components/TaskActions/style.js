@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
 		borderWidth: 3,
 		borderStyle: "solid",
 		marginTop: 15,
+		padding :15,
 		borderRadius: 10,
 		maxHeight: Dimensions.get("window").height * 0.5
 	},

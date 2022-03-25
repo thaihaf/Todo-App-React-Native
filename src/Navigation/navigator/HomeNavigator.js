@@ -12,7 +12,7 @@ const HomeNavigator = () => {
 
 	return (
 		<HomeStack.Navigator
-			initialRouteName={NavigationStrings.HOME}
+			initialRouteName={NavigationStrings.CATEGORIES}
 			screenOptions={{
 				headerShown: false,
 			}}

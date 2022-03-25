@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
 		justifyContent: "center",
 		alignItems: "center",
 		position: "relative",
+		padding : 20
 	},
 	menuActions: {
 		position: "absolute",
