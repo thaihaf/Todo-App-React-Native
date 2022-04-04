@@ -4,9 +4,9 @@ import { View, TouchableOpacity, Alert } from 'react-native';
 import { useMutation } from 'react-query';
 import ColorCode from '../../Contants/ColorCode';
 import NavigationStrings from '../../Contants/NavigationStrings';
-import { deleteTask } from '../../Ultils/API/taskApi';
 import Toast from "react-native-toast-message";
 import styles from './style';
+import { deleteTask } from '../../Ultils/taskApi';
 
 const TaskHidden = ({ task, navigation }) => {
 	const mutation = useMutation(

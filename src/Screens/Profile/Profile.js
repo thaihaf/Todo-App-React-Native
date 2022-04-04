@@ -8,7 +8,7 @@ import {
 	TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Button } from "../../Components";
+import { CustomButton } from "../../Components";
 import IconStrings from "../../Contants/IconStrings";
 import ImagePath from "../../Contants/ImagePath";
 
@@ -18,8 +18,8 @@ import ColorCode from "../../Contants/ColorCode";
 import NavigationStrings from "../../Contants/NavigationStrings";
 import Context from "../../Helpers/Context";
 import { useMutation } from "react-query";
-import { deleteUser } from "../../Ultils/API/userApi";
 import { navigate } from "../../Navigation/RootNavigation";
+import { deleteUser } from "../../Ultils/userApi";
 
 const Profile = ({ navigation }) => {
 	const context = useContext(Context);
@@ -121,13 +121,13 @@ const Profile = ({ navigation }) => {
 					<Text style={styles.name}>{context.user.username}</Text>
 				</View>
 
-				<Button
+				<CustomButton
 					style={styles.primaryBtn}
 					text="Change Password"
 					textStyle={styles.primaryBtnText}
 					onPress={() => navigation.navigate(NavigationStrings.CHANGE_PASSWORD)}
 				/>
-				<Button
+				<CustomButton
 					style={styles.primaryBtn}
 					text="Delete Account"
 					textStyle={styles.primaryBtnText}

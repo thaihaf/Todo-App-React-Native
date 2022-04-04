@@ -1,51 +1,63 @@
 //import liraries
-import React, { useRef, useState } from 'react';
-import { View,} from 'react-native';
+import React, { memo, useRef, useState } from 'react';
+import { View, } from 'react-native';
 import ColorCode from '../../Contants/ColorCode';
-import Button from '../Button/Button';
-import TextInput from '../Input/Input';
+import CustomButton from '../CustomeButton/CustomeButton';
+import CustomInput from '../CustomInput/CustomInput';
 import styles from './style';
 
-const Search = ({ actionClose, navigation, data }) => {
+const Search = ({ onSetLinkApi, name }) => {
+	const [searchBarVisible, setSearchBarVisible] = useState(false);
 	const [searchVal, setSearchVal] = useState("");
 
 	const typeingTimeoutRef = useRef(null);
 
 	const handleSearch = (value) => {
 		setSearchVal(value)
-		
+
 		if (typeingTimeoutRef.current) {
 			clearTimeout(typeingTimeoutRef.current);
 		}
-		
+
 		typeingTimeoutRef.current = setTimeout(async () => {
-			navigation.navigate(data.key,
-				{
-					refetch: true,
-					linkApi: `api/${data.name}?limit=4&page=1&search=${value}`
-				})
+			onSetLinkApi(`api/${name}?limit=4&page=1&search=${value}`);
 		}, 1000);
 	};
 
 	return (
-		<View style={styles.searchBar}>
-			<TextInput
-				style={styles.searchInput}
-				onChangeText={(value) => handleSearch(value)}
-				value={searchVal}
-				autoFocus={true}
-				placeholder="Search"
-				placeholderTextColor={ColorCode.appText}
+		<>
+			<CustomButton
+				style={[
+					styles.btnAction,
+					styles.btnActionSmall,
+					styles.searchBtn,
+				]}
+				onPress={() => setSearchBarVisible(true)}
+				iconPos="right"
+				icon="search"
 			/>
-			<Button
-				style={[styles.searchBtn, styles.btnAction]}
-				onPress={() => actionClose(false)}
-				iconPos="left"
-				icon="close"
-			/>
-		</View>
+
+			{searchBarVisible &&
+				<View style={styles.searchBar}>
+					<CustomInput
+						style={styles.searchInput}
+						onChangeText={(value) => handleSearch(value)}
+						value={searchVal}
+						autoFocus={true}
+						placeholder="Search"
+						placeholderTextColor={ColorCode.appText}
+					/>
+					<CustomButton
+						style={[styles.searchBtn, styles.btnAction]}
+						onPress={() => setSearchBarVisible(false)}
+						iconPos="left"
+						icon="close"
+					/>
+				</View>
+			}
+		</>
 	);
 };
 
 
-export default Search;
+export default memo(Search);

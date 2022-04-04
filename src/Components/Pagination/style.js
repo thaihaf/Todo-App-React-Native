@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
-		marginBottom : 100
+		marginBottom :65
 	},
 	paging__item: {
 		width: 50,
@@ -42,6 +42,10 @@ const styles = StyleSheet.create({
 	paging__item_disabled: {
 		color: "gray",
 		borderColor: "gray"
+	},
+	paging__item_hidden :{
+		display: "none",
+		opacity: 0
 	},
 
 	paging__icon_active: {

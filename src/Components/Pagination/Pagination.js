@@ -1,13 +1,13 @@
 //import liraries
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, } from 'react-native';
 import NavigationStrings from '../../Contants/NavigationStrings';
-import Button from '../Button/Button';
-import TextInput from '../Input/Input';
+import CustomeButton from '../CustomeButton/CustomeButton';
+import CustomInput from '../CustomInput/CustomInput';
 
 import styles from './style'
 
-const Pagination = ({ data, navigation }) => {
+const Pagination = ({ data, onSetLinkApi }) => {
 	let [currentPage, setCurrentPage] = useState(data.meta.currentPage);
 	const delayTimeRef = useRef(true);
 	const [val, setVal] = useState(true);
@@ -20,7 +20,7 @@ const Pagination = ({ data, navigation }) => {
 				setVal(false);
 				const linkApi = link.substring(link.lastIndexOf("/api"));
 
-				navigation.navigate(NavigationStrings.TASKS, { refetch: true, linkApi: linkApi })
+				onSetLinkApi(linkApi)
 
 				setTimeout(() => {
 					delayTimeRef.current = true;
@@ -47,14 +47,21 @@ const Pagination = ({ data, navigation }) => {
 		handleChange(link, val);
 	};
 
+	// useEffect(() => {
+	// 	return () => {
+	// 		// isApiSubscribed = false;
+	// 	};
+	// }, [])
+
+
 	return (
 		<View style={[styles.paging__list, data.meta.totalPages === 0 && { display: 'none' }]}>
-			<Button
+			<CustomeButton
 				style={[
 					styles.paging__item,
 					styles.paging__chevron,
 					data.links.previous == null && styles.paging__item_disabled,
-					!val && styles.paging__item_disabled
+					!val && styles.paging__item_disabled,
 				]}
 				onPress={() => previousBtn(data.links.previous)}
 				disabled={data.links.previous == null && true}
@@ -66,7 +73,7 @@ const Pagination = ({ data, navigation }) => {
 					&& styles.paging__icon_disabled
 				]}
 			/>
-			<Button
+			<CustomeButton
 				style={[
 					styles.paging__item,
 					currentPage === 1 ? styles.paging__item_active : "",
@@ -80,21 +87,21 @@ const Pagination = ({ data, navigation }) => {
 
 			{currentPage > 1 && currentPage < data.meta.totalPages ?
 				(
-					<TextInput
+					<CustomInput
 						style={[
 							styles.paging__input,
 							styles.paging__item_active,
-							data.meta.totalPages === 1 && { display: "none" },
+							data.meta.totalPages === 1 && styles.paging__item_hidden,
 						]}
 						value={`${currentPage}`}
 						editable={false}
 					/>
 				)
 				: (
-					<Button
+					<CustomeButton
 						style={[
 							styles.paging__item,
-							data.meta.totalPages === 1 && { display: "none" },
+							data.meta.totalPages === 1 && styles.paging__item_hidden,
 							!val && styles.paging__item_disabled,
 
 						]}
@@ -105,23 +112,23 @@ const Pagination = ({ data, navigation }) => {
 				)
 			}
 
-			<Button
+			<CustomeButton
 				style={[
 					styles.paging__item,
 					currentPage === data.meta.totalPages ? styles.paging__item_active : "",
-					data.meta.totalPages === 1 && { display: "none" },
+					data.meta.totalPages === 1 && styles.paging__item_hidden,
 				]}
 				onPress={() => numberBtn(data.links.last, data.meta.totalPages)}
 				text={data.meta ? `${data.meta.totalPages}` : ""}
 				textStyle={[!val && styles.paging__item_disabled]}
 				disabled={currentPage === data.meta.totalPages}
 			/>
-			<Button
+			<CustomeButton
 				style={[
 					styles.paging__item,
 					styles.paging__chevron,
 					data.links.next == null && styles.paging__item_disabled,
-					!val && styles.paging__item_disabled
+					!val && styles.paging__item_disabled,
 				]}
 				onPress={() => nextBtn(data.links.next)}
 				disabled={data.links.next == null && true}

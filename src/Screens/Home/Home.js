@@ -1,24 +1,15 @@
-//import liraries
-import React, { Component } from "react";
+import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
   SafeAreaView,
-  StatusBar,
-  TouchableOpacity,
-  Modal,
-  Dimensions,
-  ScrollView,
 } from "react-native";
 
-import ImagePath from "../../Contants/ImagePath";
 import NavigationStrings from "../../Contants/NavigationStrings";
 
-import { Button, Header } from "../../Components";
+import { CustomButton, Header } from "../../Components";
 
 import styles from "./style";
-import { Ionicons } from "@expo/vector-icons";
 
 const Home = ({ navigation }) => {
   return (
@@ -36,7 +27,7 @@ const Home = ({ navigation }) => {
           copletion.
         </Text>
         <View style={styles.buttons}>
-          <Button
+          <CustomButton
             style={[styles.button, styles.buttonLeft]}
             onPress={() =>
               navigation.navigate(NavigationStrings.CATEGORIES)
@@ -44,7 +35,7 @@ const Home = ({ navigation }) => {
             text="Get Start"
             textStyle={styles.primaryBtnText}
           />
-          <Button
+          <CustomButton
             style={[styles.button, styles.buttonRight]}
             text="Learn More"
             textStyle={styles.primaryBtnText}

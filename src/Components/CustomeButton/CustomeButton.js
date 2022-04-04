@@ -3,7 +3,7 @@ import React from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import ColorCode from "../../Contants/ColorCode";
 
-const Button = (props) => {
+const CustomeButton = (props) => {
 	return (
 		<TouchableOpacity {...props} style={[styles.button, props.style]}>
 			{props.icon
@@ -54,4 +54,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Button;
+export default CustomeButton;

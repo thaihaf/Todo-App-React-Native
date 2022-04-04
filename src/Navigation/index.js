@@ -8,9 +8,9 @@ import ColorCode from "../Contants/ColorCode";
 
 import { AuthNavigator, DrawerNavigator } from "./navigator"
 import { useMutation } from "react-query";
-import { getUser } from "../Ultils/API/userApi";
 import Context from "../Helpers/Context";
 import { navigationRef } from "./RootNavigation";
+import { getUser } from "../Ultils/userApi";
 
 const navTheme = {
   ...DefaultTheme,
@@ -23,6 +23,7 @@ const navTheme = {
 const AppNavContainer = () => {
   const context = useContext(Context);
   const isLoggedIn = !!context.user.id;
+	console.log("home");
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -41,7 +42,6 @@ const AppNavContainer = () => {
         });
       } else {
         setIsAuthenticated(false);
-
       }
     },
     onError: async (error) => {
@@ -57,9 +57,7 @@ const AppNavContainer = () => {
   });
 
   const getUsers = async () => {
-    const userID = await SecureStore.getItemAsync("userID")
-
-    mutation.mutate(userID)
+    mutation.mutate(await SecureStore.getItemAsync("userID"))
   };
 
   useEffect(() => {

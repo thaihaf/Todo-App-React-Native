@@ -9,41 +9,33 @@ import {
 } from "react-native";
 
 import styles from "./style";
-import { Button, Task, Header, TaskHidden, Search, Pagination, MyLoader } from "../../Components";
+import { Task, Header, TaskHidden, Search, Pagination, MyLoader, MenuActions } from "../../Components";
 import NavigationStrings from "../../Contants/NavigationStrings";
 import Context from "../../Helpers/Context";
 import { useQuery } from "react-query";
-import { getTasks } from "../../Ultils/API/taskApi";
-import IconStrings from "../../Contants/IconStrings";
 import { SwipeListView } from "react-native-swipe-list-view";
+import { getTasks } from "../../Ultils/taskApi";
 
 const Tasks = ({ navigation, route }) => {
 	const context = useContext(Context);
-	const [openMenuActions, setOpenMenuActions] = useState(false);
-	const [openSearchBar, setOpenSearchBar] = useState(false);
+	const [linkApi, setLinkApi] = useState("api/tasks?limit=4&page=1");
 
-	const firstRequest = useRef(true);
-
-	const { isLoading, isError, data, error, refetch } = useQuery(
-		["tasks", context.user.token],
-		async () => {
-			const linkApi = (route.params && route.params.linkApi)
-				? route.params.linkApi
-				: "api/tasks?limit=4&page=1";
-
-			const res = await getTasks(linkApi, firstRequest.current);
-			firstRequest.current = false;
-
-			return res;
-		}
+	const { isLoading, data, error, refetch } = useQuery(
+		["tasks", context.user.token, linkApi],
+		async () => getTasks(linkApi)
 	);
-
 
 	useEffect(() => {
 		if (route.params && route.params.refetch) {
-			refetch()
+			if (linkApi === "api/tasks?limit=4&page=1") {
+				console.log("1");
+				refetch() 
+			} else {
+				console.log("2");
+				setLinkApi("api/tasks?limit=4&page=1");
+			}
 		}
-	}, [route])
+	}, [route.params])
 
 	return (
 		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -84,59 +76,16 @@ const Tasks = ({ navigation, route }) => {
 										rightOpenValue={-75}
 									/>
 
-									<Pagination data={data} navigation={navigation} />
-
-									<View style={styles.menuActions}>
-										{openMenuActions && (
-											<View style={{ flexDirection: "row" }}>
-												<Button
-													style={[styles.btnAction, styles.btnActionSmall, styles.editBtn]}
-													onPress={
-														() =>
-															navigation.navigate(NavigationStrings.TASK_ACTIONS,
-																{
-																	type: "create",
-																	caption: "Create Task"
-																})}
-													iconPos="right"
-													icon="add"
-												/>
-												<Button
-													style={[
-														styles.btnAction,
-														styles.btnActionSmall,
-														styles.searchBtn,
-													]}
-													onPress={() => {
-														setOpenSearchBar(true);
-														setOpenMenuActions(false);
-													}}
-													iconPos="right"
-													icon="search"
-												/>
-											</View>
-										)}
-
-										<Button
-											style={[styles.btnAction]}
-											onPress={() => setOpenMenuActions(!openMenuActions)}
-											iconPos="left"
-											icon={IconStrings.icDot}
-										/>
-									</View>
-
-									{openSearchBar &&
-										<Search
-											actionClose={setOpenSearchBar}
-											navigation={navigation}
-											data={{
-												key: NavigationStrings.TASKS,
-												name: "tasks"
-											}}
-										/>
-									}
-								</>}
+									<Pagination data={data} onSetLinkApi={setLinkApi} />
+								</>
+							}
 						</MyLoader>
+
+						<MenuActions
+							type={NavigationStrings.TASKS}
+							onSetLinkApi={setLinkApi}
+							navigation={navigation}
+						/>
 					</View>
 				</KeyboardAvoidingView>
 			</SafeAreaView >

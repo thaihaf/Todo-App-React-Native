@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 import AppNavContainer from "./src/Navigation";
 import Toast from "react-native-toast-message";
+import { SafeAreaView } from "react-native";
 
 const queryClient = new QueryClient();
 
@@ -14,8 +15,10 @@ const App = () => {
 		<PaperProvider>
 			<QueryClientProvider client={queryClient}>
 				<Provider>
-					<AppNavContainer />
-					<Toast />
+					<SafeAreaView style={{ flex: 1 }}>
+						<AppNavContainer />
+						<Toast />
+					</SafeAreaView>
 				</Provider>
 			</QueryClientProvider>
 		</PaperProvider>

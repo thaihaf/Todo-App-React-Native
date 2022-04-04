@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import {
 	FlatList,
@@ -7,38 +7,20 @@ import {
 	View,
 } from "react-native";
 import styles from "./style";
-import { Button, Category, Header, MyLoader, Search } from "../../Components";
+import { Category, Header, MenuActions, MyLoader } from "../../Components";
 import NavigationStrings from "../../Contants/NavigationStrings";
-import IconStrings from "../../Contants/IconStrings";
 import { useQuery } from "react-query";
-import { getCollections } from "../../Ultils/API/collectionsApi";
 import Context from "../../Helpers/Context";
+import { getCollections } from "../../Ultils/collectionApi";
 
 const CategoriesList = ({ navigation, route }) => {
 	const context = useContext(Context);
-	const [openSearchBar, setOpenSearchBar] = useState(false);
+	const [linkApi, setLinkApi] = useState("api/categories?limit=4&page=1");
 
-	const firstRequest = useRef(true);
-
-	const { isLoading, isError, data, error, refetch } = useQuery(
-		["categories", context.user.token],
-		async () => {
-			const linkApi = (route.params && route.params.linkApi)
-				? route.params.linkApi
-				: "api/categories?limit=4&page=1";
-
-			const res = await getCollections(linkApi, firstRequest.current)
-			firstRequest.current = false;
-
-			return res
-		},
+	const { isLoading, data, error } = useQuery(
+		["categories", context.user.token, linkApi],
+		async () => getCollections(linkApi)
 	);
-
-	useEffect(() => {
-		if (route.params && route.params.refetch) {
-			refetch()
-		}
-	}, [route])
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
@@ -65,24 +47,12 @@ const CategoriesList = ({ navigation, route }) => {
 							/>
 						)}
 
-						{openSearchBar ? (
-							<Search
-								actionClose={setOpenSearchBar}
-								navigation={navigation}
-								data={{
-									key: NavigationStrings.CATEGORIES,
-									name: "categories"
-								}}
-							/>
-						) : (
-							<Button
-								style={styles.searchBtn}
-								onPress={() => setOpenSearchBar(true)}
-								iconPos="left"
-								icon={IconStrings.icSearch}
-							/>
-						)}
 					</MyLoader>
+
+					<MenuActions
+						type={NavigationStrings.CATEGORIES}
+						onSetLinkApi={setLinkApi}
+					/>
 				</View>
 			</KeyboardAvoidingView>
 		</SafeAreaView>

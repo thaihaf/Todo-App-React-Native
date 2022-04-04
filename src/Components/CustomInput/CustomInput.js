@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet, TextInput } from "react-native";
 import ColorCode from "../../Contants/ColorCode";
 
-const Input = (props) => {
+const CustomInput = (props) => {
   return (
     <View style={styles.container}>
       <TextInput
@@ -43,4 +43,4 @@ const styles = StyleSheet.create({
 });
 
 //make this component available to the app
-export default Input;
+export default CustomInput;

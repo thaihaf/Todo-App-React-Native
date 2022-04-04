@@ -6,14 +6,14 @@ import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 
 import styles from "./style";
-import { Button, TextInput } from "../../Components";
+import { CustomButton, CustomInput } from "../../Components";
 
-import { login, updateUser } from "../../Ultils/API/userApi";
 import { useMutation, useQuery } from "react-query";
 import NavigationStrings from "../../Contants/NavigationStrings";
 import Toast from "react-native-toast-message";
 import Context from "../../Helpers/Context";
 import * as SecureStore from 'expo-secure-store';
+import { login, updateUser } from "../../Ultils/userApi";
 
 const ConfirmNewPass = (props) => {
 	const { navigation } = props;
@@ -113,7 +113,7 @@ const ConfirmNewPass = (props) => {
 								},
 							}}
 							render={({ field: { onChange, onBlur, value } }) => (
-								<TextInput
+								<CustomInput
 									style={styles.input}
 									onBlur={onBlur}
 									onChangeText={onChange}
@@ -122,6 +122,7 @@ const ConfirmNewPass = (props) => {
 									errorText={errors.newPassword?.message}
 									placeholder="New Password"
 									placeholderTextColor="#999"
+									autoFocus={true}
 								/>
 							)}
 						/>
@@ -142,7 +143,7 @@ const ConfirmNewPass = (props) => {
 									value === newPassword.current || "The passwords do not match",
 							}}
 							render={({ field: { onChange, onBlur, value } }) => (
-								<TextInput
+								<CustomInput
 									style={styles.input}
 									onBlur={onBlur}
 									onChangeText={onChange}
@@ -156,7 +157,7 @@ const ConfirmNewPass = (props) => {
 						/>
 					</View>
 
-					<Button
+					<CustomButton
 						onPress={handleSubmit(onSubmit)}
 						style={styles.primaryBtn}
 						text="submit"

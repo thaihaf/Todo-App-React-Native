@@ -15,15 +15,15 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import Toast from "react-native-toast-message";
 
-import { TextInput, Button } from "../../Components";
+import { CustomInput, CustomButton } from "../../Components";
 import IconStrings from "../../Contants/IconStrings";
 import NavigationStrings from "../../Contants/NavigationStrings";
 
 import styles from "./style";
-import { login } from "../../Ultils/API/userApi";
 import { useMutation } from "react-query";
 import * as SecureStore from 'expo-secure-store';
 import Context from "../../Helpers/Context";
+import { login } from "../../Ultils/userApi";
 
 const SignIn = ({ navigation, route }) => {
 	const context = useContext(Context);
@@ -36,11 +36,7 @@ const SignIn = ({ navigation, route }) => {
 		setValue,
 	} = useForm();
 
-	useEffect(() => {
-		if (params) {
-			setValue("username", params.username);
-		}
-	}, [route.params]);
+
 
 	const mutation = useMutation(login, {
 		onSuccess: async (data) => {
@@ -88,8 +84,18 @@ const SignIn = ({ navigation, route }) => {
 						<View style={styles.formGroups}>
 							<Controller
 								name="username"
-								defaultValue=""
 								control={control}
+								render={({ field: { onChange, onBlur, value } }) =>
+									<CustomInput
+										style={styles.input}
+										onBlur={onBlur}
+										onChangeText={onChange}
+										value={value}
+										error={errors.username}
+										errorText={errors.username?.message}
+										placeholder="Username"
+										placeholderTextColor="#999"
+									/>}
 								rules={{
 									required: {
 										value: true,
@@ -99,41 +105,15 @@ const SignIn = ({ navigation, route }) => {
 										value: 3,
 										message: "Username must be at least 3 characters",
 									},
-									// pattern: {
-									//   value: RegexStrings.EMAIL_REGEX,
-									//   message: "Username is invalid",
-									// },
 								}}
-								render={({ field: { onChange, onBlur, value } }) => (
-									<TextInput
-										style={styles.input}
-										onBlur={onBlur}
-										onChangeText={onChange}
-										value={value}
-										error={errors.username}
-										errorText={errors.username?.message}
-										placeholder="Username"
-										placeholderTextColor="#999"
-									/>
-								)}
 							/>
 
 							<Controller
 								name="password"
 								defaultValue=""
 								control={control}
-								rules={{
-									required: {
-										value: true,
-										message: "Password is required",
-									},
-									minLength: {
-										value: 3,
-										message: "Password must be at least 3 characters",
-									},
-								}}
 								render={({ field: { onChange, onBlur, value } }) => (
-									<TextInput
+									<CustomInput
 										style={styles.input}
 										onBlur={onBlur}
 										onChangeText={onChange}
@@ -144,10 +124,20 @@ const SignIn = ({ navigation, route }) => {
 										placeholderTextColor="#999"
 									/>
 								)}
+								rules={{
+									required: {
+										value: true,
+										message: "Password is required",
+									},
+									minLength: {
+										value: 3,
+										message: "Password must be at least 3 characters",
+									},
+								}}
 							/>
 						</View>
 
-						<Button
+						<CustomButton
 							onPress={handleSubmit(onSubmit)}
 							style={styles.primaryBtn}
 							text="Sign In"
@@ -156,7 +146,7 @@ const SignIn = ({ navigation, route }) => {
 
 						<Text style={styles.seperator}>--- or continue with ---</Text>
 
-						<Button
+						<CustomButton
 							onPress={() => Alert.alert("Title", "Content")}
 							style={styles.btnGoogle}
 							icon={IconStrings.lgGoogle}

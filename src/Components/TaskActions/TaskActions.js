@@ -9,12 +9,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-query';
 import Toast from "react-native-toast-message";
 import styles from './style';
-import Button from '../Button/Button';
-import TextInput from '../Input/Input';
+import CustomButton from '../CustomeButton/CustomeButton';
+import CustomInput from '../CustomInput/CustomInput';
 import MyLoader from '../MyLoader/MyLoader';
-import { getCollections } from '../../Ultils/API/collectionsApi';
-import { createTask, updateTask } from '../../Ultils/API/taskApi';
 import NavigationStrings from '../../Contants/NavigationStrings';
+import { getCollections } from '../../Ultils/collectionApi';
+import { createTask, updateTask } from '../../Ultils/taskApi';
 
 
 // create a component
@@ -123,7 +123,7 @@ const TaskActions = ({ navigation, route }) => {
 								},
 							}}
 							render={({ field: { onChange, onBlur, value } }) => (
-								<TextInput
+								<CustomInput
 									style={styles.input}
 									onBlur={onBlur}
 									onChangeText={onChange}
@@ -175,13 +175,13 @@ const TaskActions = ({ navigation, route }) => {
 					</View>
 
 					<View style={[styles.group, styles.groupBtn]}>
-						<Button
+						<CustomButton
 							style={styles.button}
 							onPress={handleSubmit(onSubmit)}
 							text={"Submit"}
 						/>
 
-						<Button
+						<CustomButton
 							style={styles.button}
 							onPress={() => navigation.goBack()}
 							text={"Cancel"}

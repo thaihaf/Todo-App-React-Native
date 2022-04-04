@@ -2,14 +2,14 @@ import React, { useRef} from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { View, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { Button, TextInput } from "../../Components";
+import { CustomButton, CustomInput } from "../../Components";
 import NavigationStrings from "../../Contants/NavigationStrings";
 
 import styles from "./style";
 
 import Toast from "react-native-toast-message";
 import { useMutation } from "react-query";
-import { register } from "../../Ultils/API/userApi";
+import { register } from "../../Ultils/userApi";
 
 const SignUp = (props) => {
 	const { navigation } = props;
@@ -73,7 +73,7 @@ const SignUp = (props) => {
 								},
 							}}
 							render={({ field: { onChange, onBlur, value } }) => (
-								<TextInput
+								<CustomInput
 									style={styles.input}
 									onBlur={onBlur}
 									onChangeText={onChange}
@@ -82,6 +82,7 @@ const SignUp = (props) => {
 									errorText={errors.username?.message}
 									placeholder="Username"
 									placeholderTextColor="#999"
+									autoFocus={true}
 								/>
 							)}
 						/>
@@ -101,7 +102,7 @@ const SignUp = (props) => {
 								},
 							}}
 							render={({ field: { onChange, onBlur, value } }) => (
-								<TextInput
+								<CustomInput
 									style={styles.input}
 									onBlur={onBlur}
 									onChangeText={onChange}
@@ -131,7 +132,7 @@ const SignUp = (props) => {
 									value === password.current || "The passwords do not match",
 							}}
 							render={({ field: { onChange, onBlur, value } }) => (
-								<TextInput
+								<CustomInput
 									style={styles.input}
 									onBlur={onBlur}
 									onChangeText={onChange}
@@ -145,7 +146,7 @@ const SignUp = (props) => {
 						/>
 					</View>
 
-					<Button
+					<CustomButton
 						onPress={handleSubmit(onSubmit)}
 						style={styles.primaryBtn}
 						text="Sign up"
