@@ -13,7 +13,7 @@ const TaskHidden = ({ task, navigation }) => {
 		deleteTask,
 		{
 			onSuccess: (data) => {
-				navigation.navigate(NavigationStrings.TASKS, { refetch: true })
+				navigation.navigate(NavigationStrings.TASKS, { type : "delete" })
 
 				Toast.show({
 					type: "success",

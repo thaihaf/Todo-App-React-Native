@@ -3,7 +3,6 @@ import instance from "../Helpers/axios";
 export const getCollections = async (linkAPI) => {
   const res = await instance.get(linkAPI);
 	// await new Promise((r) => setTimeout(r, 3000));
-	console.log(res)
   return res.data;
 };
 

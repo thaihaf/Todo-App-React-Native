@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 	paging__input: {
 		width: 50,
 		height: 45,
-		paddingHorizontal: 17,
+		paddingHorizontal: 20,
 		marginHorizontal: 3,
 		fontSize: 18,
 		justifyContent: "center",
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
 	},
 
 	paging__item_active: {
+		color: ColorCode.primaryBgButton,
 		borderWidth: 2,
 		borderStyle: "solid",
 		borderColor: ColorCode.primaryBgButton

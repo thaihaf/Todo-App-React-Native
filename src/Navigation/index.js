@@ -23,7 +23,6 @@ const navTheme = {
 const AppNavContainer = () => {
   const context = useContext(Context);
   const isLoggedIn = !!context.user.id;
-	console.log("home");
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 

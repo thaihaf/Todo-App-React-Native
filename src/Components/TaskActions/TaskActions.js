@@ -59,7 +59,7 @@ const TaskActions = ({ navigation, route }) => {
 			: createTask,
 		{
 			onSuccess: (data) => {
-				navigation.navigate(NavigationStrings.TASKS, { refetch: true })
+				navigation.navigate(NavigationStrings.TASKS, { type : `${route.params.type}` })
 
 				Toast.show({
 					type: "success",

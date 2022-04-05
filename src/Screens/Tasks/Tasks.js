@@ -22,17 +22,20 @@ const Tasks = ({ navigation, route }) => {
 
 	const { isLoading, data, error, refetch } = useQuery(
 		["tasks", context.user.token, linkApi],
-		async () => getTasks(linkApi)
+		() => getTasks(linkApi)
 	);
 
 	useEffect(() => {
-		if (route.params && route.params.refetch) {
-			if (linkApi === "api/tasks?limit=4&page=1") {
-				console.log("1");
-				refetch() 
-			} else {
-				console.log("2");
-				setLinkApi("api/tasks?limit=4&page=1");
+		if (route.params && route.params.type) {
+			if(route.params.type == "create"){
+				if(linkApi.includes("api/tasks?limit=4&page=1")){
+					refetch()
+				}else{
+					setLinkApi("api/tasks?limit=4&page=1");
+				}
+			}else{
+				refetch()
+
 			}
 		}
 	}, [route.params])
@@ -76,7 +79,7 @@ const Tasks = ({ navigation, route }) => {
 										rightOpenValue={-75}
 									/>
 
-									<Pagination data={data} onSetLinkApi={setLinkApi} />
+									<Pagination data={data} onSetLinkApi={setLinkApi} currentApi={linkApi} />
 								</>
 							}
 						</MyLoader>
