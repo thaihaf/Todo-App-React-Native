@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react";
+import { Provider as PaperProvider } from "react-native-paper";
+import { Provider } from "./src/Components";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import { QueryClient, QueryClientProvider } from "react-query";
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+import AppNavContainer from "./src/Navigation";
+import Toast from "react-native-toast-message";
+import { SafeAreaView } from "react-native";
+
+const queryClient = new QueryClient();
+
+const App = () => {
+	return (
+		<PaperProvider>
+			<QueryClientProvider client={queryClient}>
+				<Provider>
+					<SafeAreaView style={{ flex: 1 }}>
+						<AppNavContainer />
+						<Toast />
+					</SafeAreaView>
+				</Provider>
+			</QueryClientProvider>
+		</PaperProvider>
+	);
+};
+
+export default App;

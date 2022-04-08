@@ -1,16 +1,21 @@
 import React, { useState } from "react";
-import UserContext from "../../Contexts/UserContext";
+import Context from "../../Helpers/Context";
 
-export default function NumberProvider({ children }) {
-  const [user, setUser] = useState({});
 
-  const updateUser = (user) => {
-    setUser(user);
-  };
+export default function Provider({ children }) {
+	const [user, setUser] = useState({})
 
-  return (
-    <UserContext.Provider value={{ user: user, updateUser: updateUser }}>
-      {children}
-    </UserContext.Provider>
-  );
+	const updateUser = (data) => {
+		setUser(data);
+	};
+
+	return (
+		<Context.Provider value=
+			{{
+				user: user,
+				updateUser: updateUser
+			}}>
+			{children}
+		</Context.Provider >
+	);
 }
