@@ -75,7 +75,12 @@ const SignIn = ({ navigation, route }) => {
 					style={{ flex: 1 }}
 					behavior={Platform.OS === "ios" ? "padding" : "height"}
 				>
-					<ScrollView style={styles.container}>
+					<ScrollView style={styles.container}
+						contentContainerStyle={{
+							paddingBottom: 70,
+							paddingHorizontal: 30,
+						}}
+					>
 						<Text style={styles.title}>Sign In</Text>
 						<Text style={styles.caption}>
 							Wellcome back you're been missed!

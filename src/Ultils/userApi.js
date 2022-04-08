@@ -11,6 +11,7 @@ export const login = async (details) => {
 };
 
 export const getUser = async (id) => {
+	await new Promise((r) => setTimeout(r, 3000));
 	const res = await instance.get(`api/users/${id}`);
 	return res ? res.data : res;
 };

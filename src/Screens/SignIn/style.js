@@ -5,8 +5,6 @@ import ColorCode from "../../Contants/ColorCode";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 30,
-    marginBottom: 70,
   },
   title: {
     marginTop: 50,

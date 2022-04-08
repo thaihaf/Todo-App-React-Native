@@ -44,6 +44,9 @@ const CategoriesList = ({ navigation, route }) => {
 									<Category category={item} navigation={navigation} />
 								)}
 								keyExtractor={(item) => `${item.id}`}
+								contentContainerStyle={
+									{ paddingHorizontal: 15 }
+								}
 							/>
 						)}
 

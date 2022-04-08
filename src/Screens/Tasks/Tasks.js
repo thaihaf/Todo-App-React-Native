@@ -27,15 +27,14 @@ const Tasks = ({ navigation, route }) => {
 
 	useEffect(() => {
 		if (route.params && route.params.type) {
-			if(route.params.type == "create"){
-				if(linkApi.includes("api/tasks?limit=4&page=1")){
+			if (route.params.type == "create") {
+				if (linkApi.includes("api/tasks?limit=4&page=1")) {
 					refetch()
-				}else{
+				} else {
 					setLinkApi("api/tasks?limit=4&page=1");
 				}
-			}else{
+			} else {
 				refetch()
-
 			}
 		}
 	}, [route.params])
@@ -77,6 +76,9 @@ const Tasks = ({ navigation, route }) => {
 
 										leftOpenValue={75}
 										rightOpenValue={-75}
+										contentContainerStyle={
+											{ paddingHorizontal: 15 }
+										}
 									/>
 
 									<Pagination data={data} onSetLinkApi={setLinkApi} currentApi={linkApi} />

@@ -11,3 +11,4 @@ export { default as Search } from "./Search/Search";
 export { default as Pagination } from "./Pagination/Pagination";
 export { default as MyLoader } from "./MyLoader/MyLoader";
 export { default as MenuActions } from "./MenuActions/MenuActions";
+export { default as SplashScreen } from "./SplashScreen/SplashScreen";

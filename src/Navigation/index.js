@@ -11,67 +11,69 @@ import { useMutation } from "react-query";
 import Context from "../Helpers/Context";
 import { navigationRef } from "./RootNavigation";
 import { getUser } from "../Ultils/userApi";
+import { SplashScreen } from "../Components";
 
 const navTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: ColorCode.appBackgound,
-  },
+	...DefaultTheme,
+	colors: {
+		...DefaultTheme.colors,
+		background: ColorCode.appBackgound,
+	},
 };
 
 const AppNavContainer = () => {
-  const context = useContext(Context);
-  const isLoggedIn = !!context.user.id;
+	const context = useContext(Context);
+	const isLoggedIn = !!context.user.id;
+	const [loading, setLoading] = useState(true)
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const mutation = useMutation(getUser, {
-    onSuccess: async (data) => {
-      if (data) {
-        setIsAuthenticated(true);
+	const mutation = useMutation(getUser, {
+		onSuccess: async (data) => {
+			if (data) {
+				setIsAuthenticated(true);
+				context.updateUser(data);
+			} else {
+				setIsAuthenticated(false);
+			}
 
-        context.updateUser(data);
+			setLoading(false)
+		},
+		onError: async (error) => {
+			setIsAuthenticated(false);
+			setLoading(false);
+			
+			Toast.show({
+				type: "error",
+				text1: error.response.data.message,
+				text2: `Code : ${error.response.data.code}`,
+				visibilityTime: 5000,
+			});
+		},
+	});
 
-        Toast.show({
-          type: "success",
-          text1: "Welcome back! 👋",
-          text2: "Hello",
-          visibilityTime: 5000,
-        });
-      } else {
-        setIsAuthenticated(false);
-      }
-    },
-    onError: async (error) => {
-      setIsAuthenticated(false);
+	const getUsers = async () => {
+		mutation.mutate(await SecureStore.getItemAsync("userID"))
+	};
 
-      Toast.show({
-        type: "error",
-        text1: error.response.data.message,
-        text2: `Code : ${error.response.data.code}`,
-        visibilityTime: 5000,
-      });
-    },
-  });
+	useEffect(() => {
+		getUsers();
+	}, [isLoggedIn])
 
-  const getUsers = async () => {
-    mutation.mutate(await SecureStore.getItemAsync("userID"))
-  };
+	return (
+		<NavigationContainer
+			theme={navTheme}
+			ref={navigationRef}
+		>
+			{loading
+				? <SplashScreen />
+				: (isLoggedIn || isAuthenticated
+					? <DrawerNavigator />
+					: <AuthNavigator />
+				)
+			}
 
-  useEffect(() => {
-    getUsers();
-  }, [isLoggedIn])
-
-  return (
-    <NavigationContainer
-      theme={navTheme}
-      ref={navigationRef}
-    >
-      {isLoggedIn || isAuthenticated
-        ? <DrawerNavigator />
-        : <AuthNavigator />}
-    </NavigationContainer>)
+		</NavigationContainer>)
 }
 
 export default AppNavContainer;

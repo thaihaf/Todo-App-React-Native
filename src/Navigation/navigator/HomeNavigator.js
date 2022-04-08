@@ -22,7 +22,7 @@ const HomeNavigator = () => {
 					key={item.name}
 					name={item.name}
 					component={item.component}
-					options={item.options ? item.options : {}}
+					// options={item.options && item.options}
 				/>
 			)}
 		</HomeStack.Navigator>

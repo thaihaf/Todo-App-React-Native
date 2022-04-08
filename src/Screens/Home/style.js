@@ -6,6 +6,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+		paddingHorizontal : 30
   },
   caption: {
     fontSize: 16,
@@ -17,7 +18,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   button: {
-    paddingHorizontal: 31,
+		maxWidth : "50%",
+    paddingHorizontal: 20,
     borderRadius: 15,
     marginHorizontal: 8,
     borderBottomWidth: 5,

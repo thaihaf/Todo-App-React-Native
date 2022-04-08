@@ -99,7 +99,7 @@ const TaskActions = ({ navigation, route }) => {
 
 	return (
 		<TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<Text style={styles.title}>
 					{route.params ? route.params.caption : "Caption"}
 				</Text>
@@ -188,7 +188,7 @@ const TaskActions = ({ navigation, route }) => {
 						/>
 					</View>
 				</View>
-			</View>
+			</ScrollView>
 		</TouchableWithoutFeedback>
 	);
 };
